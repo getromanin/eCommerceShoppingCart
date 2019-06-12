@@ -11,3 +11,28 @@ const productsDOM = document.querySelector('.products-center');
 
 // cart items
 let cart = [];
+
+// stub out classes
+// getting the products
+class Products {
+
+}
+
+// display the products
+class UI {
+
+}
+
+// local storage
+class Storage {
+
+}
+
+// event listener to run once DOM is loaded
+document.addEventListener('DOMContentLoaded', () => {
+  // create a new instance of UI
+  const ui = new UI();
+
+  // create a new instacne of products
+  const products = new Products();
+})
