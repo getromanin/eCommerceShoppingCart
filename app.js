@@ -15,7 +15,18 @@ let cart = [];
 // stub out classes
 // getting the products
 class Products {
+  // write method to get the product and wait untill we get json via fetch
+  async getProducts() {
 
+    try {
+      let result = await fetch('products.json');
+      let data =  await result.json();
+
+      return data;
+    } catch (error) {
+      console.log(error)
+    }
+  }
 }
 
 // display the products
@@ -29,10 +40,12 @@ class Storage {
 }
 
 // event listener to run once DOM is loaded
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', (e) => {
   // create a new instance of UI
   const ui = new UI();
 
   // create a new instacne of products
   const products = new Products();
+  // get all products
+  products.getProducts().then(data => console.log(data));
 })
