@@ -78,7 +78,9 @@ class UI {
 
 // local storage
 class Storage {
-
+  static saveProducts(products) {
+    localStorage.setItem("products", JSON.stringify(products));
+  }
 }
 
 // event listener to run once DOM is loaded
@@ -89,5 +91,8 @@ document.addEventListener('DOMContentLoaded', (e) => {
   // create a new instacne of products
   const products = new Products();
   // get all products
-  products.getProducts().then(products => ui.displayProducts(products));
+  products.getProducts().then(products => {
+    ui.displayProducts(products)
+    Storage.saveProducts(products)
+  });
 })
