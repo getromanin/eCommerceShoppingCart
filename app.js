@@ -74,6 +74,24 @@ class UI {
 
     productsDOM.innerHTML = result;
   }
+  getBagButtons(){
+    const buttons = [...document.querySelectorAll('.bag-btn')]
+    console.log(buttons);
+
+    buttons.forEach(button => {
+      let id =  button.dataset.id;
+      let inCart = cart.find(item => item.id === id);
+
+      if(inCart) {
+        button.innerText = 'In Cart';
+        button.disabled = true;
+      }
+      button.addEventListener('click', event => {
+        event.target.innerText = 'In Cart'
+        event.target.disabled = true;
+      })
+    })
+  }
 }
 
 // local storage
@@ -94,5 +112,7 @@ document.addEventListener('DOMContentLoaded', (e) => {
   products.getProducts().then(products => {
     ui.displayProducts(products)
     Storage.saveProducts(products)
-  });
+  }).then(() => {
+    ui.getBagButtons();
+  })
 })
