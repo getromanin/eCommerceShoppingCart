@@ -11,6 +11,8 @@ const productsDOM = document.querySelector('.products-center');
 
 // cart items
 let cart = [];
+// buttons
+let buttons = [];
 
 // stub out classes
 // getting the products
@@ -50,7 +52,7 @@ class UI {
 
     // loop through each product
     products.forEach(product => {
-      console.log('this is the product', product);
+      // console.log('this is the product', product);
       result += `
       <!-- single product -->
       <article class="product">
@@ -76,7 +78,7 @@ class UI {
   }
   getBagButtons(){
     const buttons = [...document.querySelectorAll('.bag-btn')]
-    console.log(buttons);
+    let buttonsDOM = buttons;
 
     buttons.forEach(button => {
       let id =  button.dataset.id;
@@ -86,12 +88,47 @@ class UI {
         button.innerText = 'In Cart';
         button.disabled = true;
       }
+      // add event listener to listen for the add to cart click
       button.addEventListener('click', event => {
+        // change the text of the button to 'in cart'
         event.target.innerText = 'In Cart'
+        // disable the event from triggering itself
         event.target.disabled = true;
+        // get products from products
+        // copy over the products and add a property with the amount 1
+        const cartItem = {...Storage.getProducts(id), amount: 1};
+        // console.log(cartItem);
+        // add products to the cart
+        // copy over the cart and add the cartitem
+        cart = [...cart, cartItem];
+        console.log('cart =>', cart);
+        // save the cart in local storage
+        let store = Storage.saveCart(cart);
+        // method to set the cart value
+        this.setCartValues(cart);
       })
     })
   }
+  setCartValues(cart) {
+    // store the temp and items total
+    let tempTotal = 0;
+    let itemsTotal = 0;
+    // loop through the cart and add up the amount and price
+    cart.map(item => {
+      console.log('This is the ==>', item)
+      // subscribe to the tempTotal and itemsTotal
+      tempTotal += item.price * item.amount
+      itemsTotal += item.amount
+    })
+    console.log('tempTotal ==>', tempTotal)
+    console.log('itemsTotal', itemsTotal)
+
+    // update the shopping cart icon to reflect tempTotal
+    cartTotal.innerText = parseFloat(tempTotal.toFixed(2));
+    cartItems.innerText = itemsTotal;
+    console.log(cartTotal, cartItems);
+  }
+
 }
 
 // local storage
@@ -99,13 +136,22 @@ class Storage {
   static saveProducts(products) {
     localStorage.setItem("products", JSON.stringify(products));
   }
+  static getProducts(id) {
+    let products = JSON.parse(localStorage.getItem('products'));
+
+    return products.find(product => product.id === id);
+  }
+
+  static saveCart(cart){
+    localStorage.setItem('cart', JSON.stringify(cart));
+
+  }
 }
 
 // event listener to run once DOM is loaded
 document.addEventListener('DOMContentLoaded', (e) => {
   // create a new instance of UI
   const ui = new UI();
-
   // create a new instacne of products
   const products = new Products();
   // get all products
