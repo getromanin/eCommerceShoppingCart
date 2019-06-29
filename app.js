@@ -158,6 +158,12 @@ class UI {
     cartContent.appendChild(div);
     // console.log(cartContent);
   }
+  showCart() {
+    // add a class that triggers the tranparent background
+    cartOverlay.classList.add('transparentBcg');
+    // add a class to show the actual cart
+    cartDOM.classList.add('showCart');
+  }
 }
 
 // local storage
