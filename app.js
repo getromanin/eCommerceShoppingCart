@@ -164,6 +164,28 @@ class UI {
     // add a class to show the actual cart
     cartDOM.classList.add('showCart');
   }
+  setupAPP() {
+    // once the dom is loaded get the cart from the localStorage
+    cart = Storage.getCart();
+    // then set the cart values to be updated if we find items in local storage
+    this.setCartValues(cart);
+    // then populate the cart with the item to be reflected in the shopping cart
+    this.populateCart(cart);
+    // when you click on the cart button show the shopping cart
+    cartBtn.addEventListener('click', this.showCart);
+    // when you click on the close cart button then close the cart
+    closeCartBtn.addEventListener('click', this.hideCart);
+  }
+  populateCart() {
+    // for each of the cart items found add the CartItem to the shopping cart
+    cart.forEach(item => this.addCartItem(item));
+  }
+  hideCart() {
+    // remove the transparent background
+    cartOverlay.classList.remove('transparentBcg');
+    // hide the cart
+    cartDOM.classList.remove('showCart');
+  }
 }
 
 // local storage
@@ -179,7 +201,11 @@ class Storage {
 
   static saveCart(cart){
     localStorage.setItem('cart', JSON.stringify(cart));
+  }
 
+  // get the cart if the item in the local storage exist if not show an empty cart
+  static getCart() {
+    return localStorage.getItem('cart') ? JSON.parse(localStorage.getItem('cart')) : [];
   }
 }
 
@@ -189,6 +215,8 @@ document.addEventListener('DOMContentLoaded', (e) => {
   const ui = new UI();
   // create a new instacne of products
   const products = new Products();
+  // setup app
+  ui.setupAPP();
   // get all products
   products.getProducts().then(products => {
     ui.displayProducts(products)
