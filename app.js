@@ -106,6 +106,11 @@ class UI {
         let store = Storage.saveCart(cart);
         // method to set the cart value
         this.setCartValues(cart);
+        // display cart item by calling the addCartItem
+        // function and pass in cartItem as an argument
+        this.addCartItem(cartItem);
+        // now show the cart
+        this.showCart();
       })
     })
   }
@@ -126,9 +131,33 @@ class UI {
     // update the shopping cart icon to reflect tempTotal
     cartTotal.innerText = parseFloat(tempTotal.toFixed(2));
     cartItems.innerText = itemsTotal;
-    console.log(cartTotal, cartItems);
+    // console.log(cartTotal, cartItems);
   }
+  // function to the cart items to the DOM
+  // shopping cart overlay
+  addCartItem(item) {
+    // console.log('this is the item object =>', item);
+    // create a div
+    const div = document.createElement('div')
+    // add a class to the div called cart-item
+    div.classList.add('cart-item')
+    // set the div inner html to the shopping cart item
+    // replace the item title, item price, item id, item amount
+    div.innerHTML = `<img src=${item.imageURL} alt="product">
+        <div>
+          <h4>${item.title}</h4>
+          <h5>${item.price}</h5>
+          <span class="remove-item" data-id=${item.id}>remove</span>
+        </div>
+        <div>
+          <i class="fas fa-chevron-up" data-id=${item.id}></i>
+          <p class="item-amount">${item.amount}</p>
+          <i class="fas fa-chevron-down" data-id=${item.id}></i>
+        </div>`
 
+    cartContent.appendChild(div);
+    // console.log(cartContent);
+  }
 }
 
 // local storage
