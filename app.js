@@ -12,7 +12,7 @@ const productsDOM = document.querySelector('.products-center');
 // cart items
 let cart = [];
 // buttons
-let buttons = [];
+let buttonsDOM = [];
 
 // stub out classes
 // getting the products
@@ -78,7 +78,8 @@ class UI {
   }
   getBagButtons(){
     const buttons = [...document.querySelectorAll('.bag-btn')]
-    let buttonsDOM = buttons;
+    buttonsDOM = buttons;
+    console.log('this is the buttons DOM ==>', buttonsDOM);
 
     buttons.forEach(button => {
       let id =  button.dataset.id;
@@ -115,6 +116,7 @@ class UI {
     })
   }
   setCartValues(cart) {
+    console.log('this is the cart', cart)
     // store the temp and items total
     let tempTotal = 0;
     let itemsTotal = 0;
@@ -125,8 +127,8 @@ class UI {
       tempTotal += item.price * item.amount
       itemsTotal += item.amount
     })
-    console.log('tempTotal ==>', tempTotal)
-    console.log('itemsTotal', itemsTotal)
+    // console.log('tempTotal ==>', tempTotal)
+    // console.log('itemsTotal', itemsTotal)
 
     // update the shopping cart icon to reflect tempTotal
     cartTotal.innerText = parseFloat(tempTotal.toFixed(2));
@@ -186,6 +188,50 @@ class UI {
     // hide the cart
     cartDOM.classList.remove('showCart');
   }
+  cartLogic() {
+    // add an event listener that removes all items from the cart
+    clearCartBtn.addEventListener('click', ()=> {
+      this.clearCart();
+    });
+  }
+  clearCart() {
+    // get all id's of the items in the cart
+    let cartItems = cart.map(item => item.id);
+    // console.log(cartItems);
+    // once I get the ID remove all the items
+    cartItems.forEach(id => this.removeItem(id));
+    // remove all of items from the DOM cart when I clear the cart
+    console.log('cartContent.children', cartContent.children);
+    while(cartContent.children.length > 0) {
+      cartContent.removeChild(cartContent.children[0])
+    }
+    // hide the cart
+    this.hideCart();
+  }
+  removeItem(id) {
+    // console.log('this is the ==>', id)
+    // filter the cart if the item.id does not equal to
+    // the current id being removed return it
+     cart = cart.filter(item => item.id !== id);
+    // update/set the cartvalues
+    this.setCartValues(cart);
+    // update the Storage to save the cart
+    Storage.saveCart(cart)
+    // store the single button we are click on
+
+    let button = this.getSingleButton(id);
+    console.log('this is the button b=>',button);
+    // add the addCart button back to the items
+    button.disabled = false;
+    // set the button inner html back to original button
+    button.innerHTML = `<i class="fas fa-shopping-cart"></i>add to cart`;
+  }
+  getSingleButton(id){
+    // find the button ID that was in the cart and match it to the button dataset id
+    // and match it to the id that I am passing it.
+    // console.log('this is the id', id);
+    return buttonsDOM.find(button => button.dataset.id === id);
+  }
 }
 
 // local storage
@@ -223,5 +269,6 @@ document.addEventListener('DOMContentLoaded', (e) => {
     Storage.saveProducts(products)
   }).then(() => {
     ui.getBagButtons();
+    ui.cartLogic();
   })
 })
