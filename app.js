@@ -79,7 +79,6 @@ class UI {
   getBagButtons(){
     const buttons = [...document.querySelectorAll('.bag-btn')]
     buttonsDOM = buttons;
-    console.log('this is the buttons DOM ==>', buttonsDOM);
 
     buttons.forEach(button => {
       let id =  button.dataset.id;
@@ -102,7 +101,6 @@ class UI {
         // add products to the cart
         // copy over the cart and add the cartitem
         cart = [...cart, cartItem];
-        console.log('cart =>', cart);
         // save the cart in local storage
         let store = Storage.saveCart(cart);
         // method to set the cart value
@@ -116,13 +114,11 @@ class UI {
     })
   }
   setCartValues(cart) {
-    console.log('this is the cart', cart)
     // store the temp and items total
     let tempTotal = 0;
     let itemsTotal = 0;
     // loop through the cart and add up the amount and price
     cart.map(item => {
-      console.log('This is the ==>', item)
       // subscribe to the tempTotal and itemsTotal
       tempTotal += item.price * item.amount
       itemsTotal += item.amount
@@ -193,6 +189,22 @@ class UI {
     clearCartBtn.addEventListener('click', ()=> {
       this.clearCart();
     });
+    // cart functionality, add event listener to capture
+    // console.log('this: outside the cartLogic()', this);
+    cartContent.addEventListener('click', event => {
+      console.log('event:', event)
+      // since we relied on bubbling the event, if the button clicked
+      // has class named remove-item
+      if(event.target.classList.contains('remove-item')) {
+        let removeItem = event.target;
+        let id = removeItem.dataset.id;
+        console.log('id:', id);
+        cartContent.removeChild(removeItem.parentElement.parentElement);
+        // console.log('this: inside cartLogic()', this);
+        // console.log('this:', this.removeItem(id));
+        this.removeItem(id)
+      }
+    });
   }
   clearCart() {
     // get all id's of the items in the cart
@@ -212,7 +224,7 @@ class UI {
     // console.log('this is the ==>', id)
     // filter the cart if the item.id does not equal to
     // the current id being removed return it
-     cart = cart.filter(item => item.id !== id);
+    cart = cart.filter(item => item.id !== id);
     // update/set the cartvalues
     this.setCartValues(cart);
     // update the Storage to save the cart
