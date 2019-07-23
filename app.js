@@ -203,6 +203,28 @@ class UI {
         // console.log('this: inside cartLogic()', this);
         // console.log('this:', this.removeItem(id));
         this.removeItem(id)
+      } else if (event.target.classList.contains('fa-chevron-up')) {
+        // grab the event
+        let addAmount = event.target;
+        // grab the data
+        let id = addAmount.dataset.id;
+        // console.log('id:', id);
+        // find the item that we are clicking on in the array cart with the find()
+        let tempItem = cart.find(item => {
+          console.log('id:', id);
+          console.log('item', item);
+          console.log('item.id', item.id);
+          console.log(id === item.id);
+          return item.id === id;
+        });
+        // when chevup is clicked increment the amount
+        tempItem.amount = tempItem.amount + 1
+        // save the new amount to the cart
+        Storage.saveCart(cart);
+        // update the cart values
+        this.setCartValues(cart);
+        // update the text to reflect the new item amount
+        addAmount.nextElementSibling.innerText = tempItem.amount;
       }
     });
   }
