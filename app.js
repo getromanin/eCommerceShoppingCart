@@ -225,6 +225,28 @@ class UI {
         this.setCartValues(cart);
         // update the text to reflect the new item amount
         addAmount.nextElementSibling.innerText = tempItem.amount;
+      } else if (event.target.classList.contains('fa-chevron-down')) {
+        let lowerAmount = event.target;
+        let id = lowerAmount.dataset.id;
+        console.log(id)
+
+        let tempItem = cart.find(item => item.id === id);
+        console.log('tempItem:', tempItem);
+
+        tempItem.amount = tempItem.amount - 1;
+        // if the item amount is 0
+        if(tempItem.amount > 0) {
+          // update the local sotrage to save the cart
+          Storage.saveCart(cart);
+          // update the values in the cart
+          this.setCartValues(cart);
+          // update the text amount to reflect the new amount in the cart
+          lowerAmount.previousElementSibling.innerText = tempItem.amount;
+        } else {
+          // remove the item from the cart once we decrement to 0 items
+          cartContent.removeChild(lowerAmount.parentElement.parentElement);
+          this.removeItem(id);
+        }
       }
     });
   }
