@@ -27,3 +27,5 @@ class Products {
     }
   }
 }
+
+export {Products};
