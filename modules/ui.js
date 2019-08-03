@@ -1,3 +1,7 @@
+// cart items
+let cart = [];
+// buttons
+let buttonsDOM = [];
 // display the products
 class UI {
   displayProducts(products) {
@@ -242,4 +246,45 @@ class UI {
     // console.log('this is the id', id);
     return buttonsDOM.find(button => button.dataset.id === id);
   }
+}
+
+// export const displayProducts = UI.prototype.displayProducts;
+// export const getBagButtons = UI.prototype.getBagButtons;
+// export const setCartValues = UI.prototype.setCartValues;
+// export const addCartItem = UI.prototype.addCartItem;
+// export const showCart = UI.prototype.showCar;
+// export const setupAPP = UI.prototype.setupAPP;
+// export const populateCart = UI.prototype.populateCart;
+// export const hideCart = UI.prototype.hideCart;
+// export const cartLogic = UI.prototype.cartLogic;
+// export const clearCart = UI.prototype.clearCart;
+// export const removeItem = UI.prototype.removeItem;
+// export const getSingleButton = UI.prototype.getSingleButton;
+
+const displayProducts = UI.prototype.displayProducts;
+const getBagButtons = UI.prototype.getBagButtons();
+const setCartValues = UI.prototype.setCartValues;
+const addCartItem = UI.prototype.addCartItem;
+const showCart = UI.prototype.showCar;
+const setupAPP = UI.prototype.setupAPP;
+const populateCart = UI.prototype.populateCart;
+const hideCart = UI.prototype.hideCart;
+const cartLogic = UI.prototype.cartLogic;
+const clearCart = UI.prototype.clearCart;
+const removeItem = UI.prototype.removeItem;
+const getSingleButton = UI.prototype.getSingleButton;
+
+export default {
+  displayProducts,
+  getBagButtons,
+  setCartValues,
+  addCartItem,
+  showCart,
+  setupAPP,
+  populateCart,
+  hideCart,
+  cartLogic,
+  clearCart,
+  removeItem,
+  getSingleButton
 }
