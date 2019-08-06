@@ -10,7 +10,7 @@
 
 
 # ui.js will hold
-- 
+-
 
 # storage.js will hold
 - storage
