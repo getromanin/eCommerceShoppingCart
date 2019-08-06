@@ -1,3 +1,14 @@
+var api_key = config.API_KEY;
+var contentful_space = config.CONTENTFUL_SPACE;
+
+// request for contentful API
+const client = contentful.createClient({
+  // this is the space ID. A space is like a project folder in Contentful terms
+  space: contentful_space,
+  // this is the access token for this space.
+  accessToken: api_key
+})
+
 // create variables cache the DOM
 const cartBtn = document.querySelector('.cart-btn');
 const closeCartBtn = document.querySelector('.close-cart');
@@ -21,9 +32,16 @@ class Products {
   async getProducts() {
 
     try {
-      let result = await fetch('products.json');
-      let data =  await result.json();
-      let products = data.items;
+      let contentful = await client.getEntries({
+        content_type: 'eCommerceShoppingCart'
+      })
+
+      console.log(contentful);
+
+      // let result = await fetch('products.json');
+      // let data =  await result.json();
+
+      let products = contentful.items;
       products = products.map(item => {
         // console.log(item);
         const {title, price} = item.fields;
