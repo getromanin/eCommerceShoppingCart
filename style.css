@@ -24,7 +24,7 @@ body {
 .navbar {
   position: sticky;
   top: 0;
-  height: 60px;
+  height: 100px;
   width: 100%;
   display: flex;
   align-items: center;
@@ -56,11 +56,23 @@ body {
   border-radius: 30%;
   color: var(--mainWhite);
 }
+
+/* .park {
+  width: 150px;
+  height: 150
+} */
+
+.park {
+  width: 200px;
+  height: 200px;
+  margin-top: 95px;
+}
 /* --------------- End of Navbar ---------------- */
 /* --------------- Hero ---------------- */
 .hero {
   min-height: calc(100vh - 60px);
   background: url("./images/hero-bcg.jpeg") center/cover no-repeat;
+  /* background: url("./images/") center/cover no-repeat; */
   display: flex;
   align-items: center;
   justify-content: center;
