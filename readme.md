@@ -10,7 +10,7 @@ https://parkchesteroval-fleamarket.netlify.com/
 - Vanilla Javascript
 - HTML
 - CSS
-- Figma [Custom logo built from ]
+- Figma [Custom logo built from]
 
 `Server`
 - Contentful [Headless CMS]
