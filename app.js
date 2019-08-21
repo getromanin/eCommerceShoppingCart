@@ -329,6 +329,13 @@ class Storage {
   }
 }
 
+// function to handle smooth scroll on button click
+function scrollToElement() {
+  document.querySelector('.scroll').scrollIntoView({
+    behavior: 'smooth'
+  });
+}
+
 // event listener to run once DOM is loaded
 document.addEventListener('DOMContentLoaded', (e) => {
   // create a new instance of UI
