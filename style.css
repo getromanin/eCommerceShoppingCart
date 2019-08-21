@@ -19,7 +19,6 @@ body {
   background: var(--mainWhite);
   font-family: "Lato", sans-serif;
 }
-
 /* --------------- Navbar ---------------- */
 .navbar {
   position: sticky;
@@ -56,12 +55,6 @@ body {
   border-radius: 30%;
   color: var(--mainWhite);
 }
-
-/* .park {
-  width: 150px;
-  height: 150
-} */
-
 .park {
   width: 200px;
   height: 200px;
@@ -106,7 +99,6 @@ body {
 }
 /* --------------- End of Hero ---------------- */
 /* --------------- Products ---------------- */
-
 .products {
   padding: 4rem 0;
 }
@@ -177,9 +169,7 @@ body {
   color: var(--primaryColor);
   text-align: center;
 }
-
 /* ---------------End of Products ---------------- */
-
 .cart-overlay {
   position: fixed;
   top: 0;
